@@ -133,6 +133,8 @@ d3.select("p")
     
    data = sortByDigit(count);
    count++;
+   var text = arrayToList(data);
+   $('body').append('<p>' + text + '</p>');
        
        
     svg.selectAll("rect").data(data)
@@ -148,3 +150,16 @@ d3.select("p")
        
 
 });
+
+var arrayToList = function(a){
+    var list = "" + count + ". ";
+ for (var i = 0; i < a.length; i++){
+      list = list + a[i];
+      if (i != a.length - 1){
+      list = list + ",";
+      }
+ }
+ return list;
+}
+
+$('body').append('<p>' + arrayToList(data)+ '</p>');
