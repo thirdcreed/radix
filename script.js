@@ -154,12 +154,24 @@ d3.select("p")
 var arrayToList = function(a){
     var list = "" + count + ". ";
  for (var i = 0; i < a.length; i++){
+      a[i] = highlightNum("" + a[i],count - 1);
       list = list + a[i];
       if (i != a.length - 1){
       list = list + ",";
       }
  }
  return list;
+}
+
+var highlightNum = function(number, count){
+     
+    if (number.length >= count){
+     
+     var returnNum = number.replace(number[-1 * count],"<em>" + number[-1 * count] + "</em>")
+     
+    }
+
+return (count > 0) ? number: returnNum;
 }
 
 $('body').append('<p>' + arrayToList(data)+ '</p>');
