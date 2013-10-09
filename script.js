@@ -152,26 +152,38 @@ d3.select("p")
 });
 
 var arrayToList = function(a){
+    var clone = a.slice(0);
     var list = "" + count + ". ";
  for (var i = 0; i < a.length; i++){
-      a[i] = highlightNum("" + a[i],count - 1);
-      list = list + a[i];
-      if (i != a.length - 1){
+      clone[i] = highlightNum("" + clone[i],count - 1);
+      list = list + clone[i];
+      if (i != clone.length - 1){
       list = list + ",";
       }
  }
  return list;
 }
 
-var highlightNum = function(number, count){
-     
-    if (number.length >= count){
-     
-     var returnNum = number.replace(number[-1 * count],"<em>" + number[-1 * count] + "</em>")
-     
+var highlightNum = function(number, letterNum){
+      console.log("params",number,letterNum)
+     //console.log("numberToBeHighlighted",number[number.length - (letterNum )]);
+     var returnNum = number;
+    if (number.length >= letterNum){
+     var firstBits = number.substring(0,number.length - letterNum);
+     var lastBits = number.substring((number.length  - letterNum) + 1,number.length );
+     var importantBit = number.charAt(number.length - letterNum);
+
+     returnNum = firstBits + "<em>" + importantBit + "</em>" + lastBits;
+     console.log("firstBits",firstBits);
+     console.log("lastBits",lastBits);
+     console.log("importanBit",importantBit);
+
+
+     //var returnNum = number.replace(number[number.length - (letterNum ) ],"<em>" + number[number.length - (letterNum ) ] + "</em>")
+     //console.log(number, returnNum);
     }
 
-return (count > 0) ? number: returnNum;
+return (letterNum > 0) ? returnNum : number;
 }
 
 $('body').append('<p>' + arrayToList(data)+ '</p>');
